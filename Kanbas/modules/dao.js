@@ -5,7 +5,6 @@ export const createModule = (course, module) => {
   return model.create(module);
 };
 export const findAllModules = () => model.find();
-export const findModuleById = (moduleId) => model.findOne({ id: moduleId });
 export const findModulesByCourse = (courseId) =>
   model.find({ course: courseId });
 export const updateModule = (moduleId, module) =>
