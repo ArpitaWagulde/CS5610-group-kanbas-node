@@ -1,6 +1,6 @@
 import * as dao from "./dao.js";
 function QuestionRoutes(app) {
-  app.post("/api/courses/:cid/quizzes/:qid/question", async (req, res) => {
+  app.post("/api/quizzes/:qid/question", async (req, res) => {
     const newQuestion = await dao.createQuestion(req.params.qid, req.body);
     res.json(newQuestion);
   });

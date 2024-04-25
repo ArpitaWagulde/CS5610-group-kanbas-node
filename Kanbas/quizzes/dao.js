@@ -15,3 +15,4 @@ export const deleteQuiz = (quizId) => {
 };
 export const updatePublished = (quizId, published) =>
   model.updateOne({ id: quizId }, { $set: { published } });
+export const findQuizById = (quizId) => model.findOne({ id: quizId });

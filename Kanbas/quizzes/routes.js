@@ -24,6 +24,10 @@ function QuizRoutes(app) {
     const status = await dao.updatePublished(qid, req.params.published);
     res.json(status);
   });
+  app.get("/api/quizzes/:qid", async (req, res) => {
+    const quiz = await dao.findQuizById(req.params.qid);
+    res.send(quiz);
+  });
 }
 
 export default QuizRoutes;
