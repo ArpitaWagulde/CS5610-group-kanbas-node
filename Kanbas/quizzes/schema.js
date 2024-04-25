@@ -20,6 +20,7 @@ const quizzesSchema = new mongoose.Schema(
     question_count: Number,
     course: String,
     published: Boolean,
+    quizFor: String,
   },
   { collection: "quizzes" }
 );

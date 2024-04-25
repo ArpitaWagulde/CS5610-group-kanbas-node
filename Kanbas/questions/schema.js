@@ -8,6 +8,7 @@ const questionsSchema = new mongoose.Schema(
     answer: [String],
     options: [String],
     quizId: String,
+    points: Number,
   },
   { collection: "questions" }
 );

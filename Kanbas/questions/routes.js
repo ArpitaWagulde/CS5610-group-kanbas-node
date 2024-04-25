@@ -18,5 +18,9 @@ function QuestionRoutes(app) {
     const status = await dao.updateQuestion(quid, req.body);
     res.json(status);
   });
+  app.get("/api/questions/:quid", async (req, res) => {
+    const question = await dao.findQuestion(req.params.quid);
+    res.send(question);
+  });
 }
 export default QuestionRoutes;
