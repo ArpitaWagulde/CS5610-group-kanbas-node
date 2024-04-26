@@ -1,33 +1,32 @@
-import db from "../Database/index.js";
+import * as dao from "./dao.js";
+
 function QuizRoutes(app) {
-  app.post("/api/courses/:cid/quizzes", (req, res) => {
-    const { cid } = req.params;
-    const newQuiz = {
-      ...req.body,
-      course: cid,
-      id: "Q" + new Date().getTime().toString(),
-    };
-    db.assignments.push(newQuiz);
-    res.send(newQuiz);
+  app.post("/api/courses/:cid/quizzes", async (req, res) => {
+    const newQuiz = await dao.createQuiz(req.params.cid, req.body);
+    res.json(newQuiz);
   });
-  app.delete("/api/quizzes/:qid", (req, res) => {
-    const { qid } = req.params;
-    db.quizzes = db.quizzes.filter((q) => q.id !== qid);
-    res.sendStatus(200);
+  app.delete("/api/quizzes/:qid", async (req, res) => {
+    const status = await dao.deleteQuiz(req.params.qid);
+    res.json(status);
   });
-  app.get("/api/courses/:cid/quizzes", (req, res) => {
+  app.get("/api/courses/:cid/quizzes", async (req, res) => {
     const { cid } = req.params;
-    const quizzes = db.quizzes.filter((q) => q.course === cid);
+    const quizzes = await dao.findQuizzesByCourse(cid);
     res.send(quizzes);
   });
-  app.put("/api/quizzes/:qid", (req, res) => {
+  app.put("/api/quizzes/:qid", async (req, res) => {
     const { qid } = req.params;
-    const quizIndex = db.quizzes.findIndex((q) => q.id === qid);
-    db.quizzes[quizIndex] = {
-      ...db.quizzes[quizIndex],
-      ...req.body,
-    };
-    res.sendStatus(204);
+    const status = await dao.updateQuiz(qid, req.body);
+    res.json(status);
+  });
+  app.put("/api/quizzes/:qid/:published", async (req, res) => {
+    const { qid } = req.params;
+    const status = await dao.updatePublished(qid, req.params.published);
+    res.json(status);
+  });
+  app.get("/api/quizzes/:qid", async (req, res) => {
+    const quiz = await dao.findQuizById(req.params.qid);
+    res.send(quiz);
   });
 }
 
