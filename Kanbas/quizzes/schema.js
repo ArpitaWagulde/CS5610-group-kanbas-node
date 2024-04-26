@@ -9,7 +9,7 @@ const quizzesSchema = new mongoose.Schema(
     shuffle_answers: Boolean,
     time_limit: Number,
     multiple_attempts: Boolean,
-    show_correct: String,
+    show_correct: Boolean,
     access_code: String,
     one_question: Boolean,
     webcam: Boolean,
