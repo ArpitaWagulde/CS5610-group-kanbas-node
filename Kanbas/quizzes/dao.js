@@ -1,5 +1,6 @@
 import model from "./model.js";
 export const createQuiz = (course, quiz) => {
+  delete quiz._id;
   quiz.id = "Q" + new Date().getTime().toString();
   quiz.course = course;
   return model.create(quiz);
